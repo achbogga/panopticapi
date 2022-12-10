@@ -42,6 +42,8 @@ def extract_semantic_single_core(proc_id,
                                  save_as_png,
                                  things_other):
     annotation_semantic_seg = []
+    if not os.path.exists(semantic_seg_folder):
+        os.makedirs(semantic_seg_folder)
     for working_idx, annotation in enumerate(annotations_set):
         if working_idx % 100 == 0:
             print('Core: {}, {} from {} images processed'.format(proc_id,

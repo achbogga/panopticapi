@@ -65,8 +65,8 @@ def convert_detection_to_panoptic_coco_format_single_core(
             ann['id'] = segment_id
             segments_info.append(ann)
 
-        if np.sum(overlaps_map > 1) != 0:
-            raise Exception("Segments for image {} overlap each other.".format(img_id))
+        # if np.sum(overlaps_map > 1) != 0:
+        #     raise Exception("Segments for image {} overlap each other.".format(img_id))
         panoptic_record['segments_info'] = segments_info
         annotations_panoptic.append(panoptic_record)
 
@@ -86,7 +86,7 @@ def convert_detection_to_panoptic_coco_format(input_json_file,
         segmentations_folder = output_json_file.rsplit('.', 1)[0]
     if not os.path.isdir(segmentations_folder):
         print("Creating folder {} for panoptic segmentation PNGs".format(segmentations_folder))
-        os.mkdir(segmentations_folder)
+        os.makedirs(segmentations_folder)
 
     print("CONVERTING...")
     print("COCO detection format:")

@@ -7,6 +7,16 @@ import traceback
 import json
 import numpy as np
 
+class NpEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.integer):
+            return int(obj)
+        if isinstance(obj, np.floating):
+            return float(obj)
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return super(NpEncoder, self).default(obj)
+
 
 # The decorator is used to prints an error trhown inside process
 def get_traceback(f):
@@ -96,4 +106,4 @@ def id2rgb(id_map):
 
 def save_json(d, file):
     with open(file, 'w') as f:
-        json.dump(d, f)
+        json.dump(d, f, cls=NpEncoder)
