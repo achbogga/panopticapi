@@ -69,8 +69,12 @@ class PQStat():
             pq += pq_class
             sq += sq_class
             rq += rq_class
+        try:
+            result_dict = {'pq': pq / n, 'sq': sq / n, 'rq': rq / n, 'n': n}
+        except ZeroDivisionError as ze:
+            result_dict = {'pq': 0, 'sq': 0, 'rq': 0, 'n': n}
 
-        return {'pq': pq / n, 'sq': sq / n, 'rq': rq / n, 'n': n}, per_class_results
+        return result_dict, per_class_results
 
 
 @get_traceback
